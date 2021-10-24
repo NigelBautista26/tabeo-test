@@ -13,14 +13,14 @@ fixture('Tabeo Tests')
     await t.click(mainPage.signInButton())
   })
 
-  test.meta('testID', 'tb-1')("Purchase a subscription", async (t) => {
+  test.meta('testID', 'tb-1')("Google sign in and purchase of subscription", async (t) => {
     await t.click(mainPage.signInWithGoogleButton())
     await googleLoginPage.googleLogin(t)
     await t.expect(mainPage.accountName().textContent).contains(user.fullName)
     await t.click(mainPage.subscriptionButton())
     await subscriptionPage.subscribe(t)
     await t.switchToIframe(subscriptionPage.iframeSubscriptionPage())
-    await t.click(subscriptionPage.completeAuthenticationButton())
+    // await t.click(subscriptionPage.completeAuthenticationButton())
 })
 
   test.meta('testID', 'tb-2')("Cancel a subscription payment", async (t) => {
@@ -35,12 +35,25 @@ fixture('Tabeo Tests')
     await t.expect(subscriptionPage.unableToSubscribeMessage().visible).ok()
   })
 
-  test.meta('testID', 'tb-3')("Email sign in", async (t) => {
+  test.meta('testID', 'tb-3')("Empty subscription payment", async (t) => {
+    await t.click(mainPage.signInWithGoogleButton())
+    await googleLoginPage.googleLogin(t)
+    await t.expect(mainPage.accountName().textContent).contains(user.fullName)
+    await t.click(mainPage.subscriptionButton())
+    await t.click(subscriptionPage.subscribeButton())
+    await t.expect(subscriptionPage.requiredMessage().visible).ok()
+  })
+
+  test.meta('testID', 'tb-4')("Email sign in and purchase of subscription", async (t) => {
       await mainPage.emailLogin(t)
       await t.navigateTo(mailinatorPage.mailinatorPage())
       await t.click(mailinatorPage.recievedEmail())
       await t.switchToIframe(mailinatorPage.iframe())
       await t.click(mailinatorPage.magicLink()).maximizeWindow()
+      await t.click(mainPage.subscriptionButton())
+      await subscriptionPage.subscribe(t)
+      await t.switchToIframe(subscriptionPage.iframeSubscriptionPage())
+      // await t.click(subscriptionPage.completeAuthenticationButton())
   })
 
 

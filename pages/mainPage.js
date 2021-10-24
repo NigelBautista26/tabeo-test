@@ -13,7 +13,7 @@ class MainPage {
 
     async emailLogin(t) {
       await t.typeText(this.emailField(), user.email)
-      await t.click(this.signInWithEmailButton())
+      await t.click(this.signInWithEmailButton()).wait(4000) // this wait is to give mailinator the time to recieve the email with the magic link...
     }
 
   }
