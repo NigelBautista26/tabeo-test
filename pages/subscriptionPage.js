@@ -15,7 +15,8 @@ class SubscriptionPage {
     iframeSubscriptionPage() { return Selector('body > div:nth-child(1) > iframe') }
     cancelSubscriptionButton() { return Selector('.LightboxModalClose') }
     unableToSubscribeMessage() { return Selector('p', { timeout: 7000 }).withText('We are unable to authenticate your payment method. Please choose a different payment method and try again.') }
-    completeAuthenticationButton() { return Selector('form').withText('Complete authentication') }
+    completeAuthenticationButton() { return Selector('button[type="submit"]#test-source-authorize-3ds') }
+    
 
     async subscribe(t) {
       await t.typeText(this.cardNumberField(), cardDetails.cardNumber)

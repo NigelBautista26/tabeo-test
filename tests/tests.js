@@ -21,7 +21,6 @@ fixture('Tabeo Tests')
     await subscriptionPage.subscribe(t)
     await t.switchToIframe(subscriptionPage.iframeSubscriptionPage())
     await t.click(subscriptionPage.completeAuthenticationButton())
-    await t.wait(7000)
 })
 
   test.meta('testID', 'tb-2')("Cancel a subscription payment", async (t) => {
