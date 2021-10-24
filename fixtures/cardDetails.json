@@ -1,5 +1,7 @@
 {
     "cardNumber": "4000002760003184",
+    "invalidCardNumber": "2212312322222312",
+    "incompleteCardNumber": "22123123",
     "expiryDate": "0423",
     "cardCVC": "111",
     "nameOnCard": "TabeoTestName",

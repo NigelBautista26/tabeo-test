@@ -13,6 +13,8 @@ class SubscriptionPage {
     mobileNumberield() { return Selector('#phoneNumber') }
     subscribeButton() { return Selector('button').withText('Subscribe') }
     requiredMessage() { return Selector('#required-cardNumber-fieldset', { timeout: 7000 } ) }
+    invalidCardMessage() { return Selector('span', { timeout: 7000 } ).withText('Your card number is invalid.') }
+    incompleteCardMessage() { return Selector('span', { timeout: 7000 } ).withText('Your card number is incomplete.') }
     iframeSubscriptionPage() { return Selector('body > div:nth-child(1) > iframe') }
     cancelSubscriptionButton() { return Selector('.LightboxModalClose') }
     unableToSubscribeMessage() { return Selector('p', { timeout: 7000 }).withText('We are unable to authenticate your payment method. Please choose a different payment method and try again.') }
@@ -25,6 +27,15 @@ class SubscriptionPage {
       await t.typeText(this.cardCVCField(), cardDetails.cardCVC)
       await t.typeText(this.nameOnCardField(), cardDetails.nameOnCard)
       await t.typeText(this.postalCodeField(), cardDetails.postalCode)
+      await t.click(this.subscribeButton())
+    }
+
+    async subscribeWithInvalidCardNumber(t) {
+      await t.typeText(this.cardNumberField(), cardDetails.invalidCardNumber)
+    }
+
+    async subscribeWithIncompleteCardNumber(t) {
+      await t.typeText(this.cardNumberField(), cardDetails.incompleteCardNumber)
       await t.click(this.subscribeButton())
     }
 
