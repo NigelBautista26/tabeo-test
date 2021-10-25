@@ -24,7 +24,6 @@ test.meta('testID', 'tb-18')("Download single pay file", async (t) => {
       await t.expect(downloadPage.purchaseReadyToDownloadMessage().visible).ok()
       await t.expect(downloadPage.priceDisplay().innerText).eql('£220')
       await t.click(downloadPage.downloadButton())
-      await t.expect(fs.existsSync('/Users/nigelbautista/Downloads')).ok()
 })
   
 
