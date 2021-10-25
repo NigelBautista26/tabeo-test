@@ -1,6 +1,5 @@
 import { Selector, t } from 'testcafe'
 import user from "./../fixtures/user.json"
-
 class MainPage {
 
     signInButton() { return Selector('.justify-between > .text-sm') }

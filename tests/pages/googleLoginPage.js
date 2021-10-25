@@ -1,6 +1,5 @@
 import { Selector } from "testcafe"
 import user from "./../fixtures/user.json"
-
 class GoogleLoginPage {
 
     googleEmailField() { return Selector('#identifierId') }

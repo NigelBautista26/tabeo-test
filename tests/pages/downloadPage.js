@@ -1,7 +1,5 @@
 import { Selector, t } from 'testcafe'
 import { ClientFunction } from 'testcafe'
-import fs from 'fs'
-
 class DownloadPage {
 
     downloadPageURL() { return ('https://qa-challenge-tabeo.vercel.app/success') }
@@ -11,6 +9,7 @@ class DownloadPage {
     priceDisplay() { return Selector('.pl-4 > .ml-2') }
 
     async checkCurrentURL() {
+        await t.wait(7000)
         const getLocation = ClientFunction(() => document.location.href)
         await t.expect(getLocation()).contains(this.downloadPageURL())
     }

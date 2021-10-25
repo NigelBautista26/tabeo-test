@@ -1,5 +1,4 @@
 import { Selector, t } from 'testcafe'
-
 class MailinatorPage {
 
     recievedEmail() { return Selector('tr').withText('just now', { timeout: 20000 } ) }
