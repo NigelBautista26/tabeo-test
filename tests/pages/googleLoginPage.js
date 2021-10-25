@@ -1,5 +1,5 @@
 import { Selector } from "testcafe"
-import user from "./../fixtures/googleUser.json"
+import user from "./../fixtures/user.json"
 
 class GoogleLoginPage {
 

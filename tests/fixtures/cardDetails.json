@@ -1,5 +1,6 @@
 {
     "cardNumber": "4000002760003184",
+    "rejectedCardNumber": "4000008260003178",
     "invalidCardNumber": "2212312322222312",
     "incompleteCardNumber": "22123123",
     "expiryDate": "0423",
