@@ -1,9 +1,9 @@
 import { Selector, t } from 'testcafe'
-import googleLoginPage from "../pages/googleLoginPage"
-import mailinatorPage from '../pages/mailinatorPage'
-import mainPage from "../pages/mainPage"
-import subscriptionPage from '../pages/subscriptionPage'
-import user from "../fixtures/googleUser.json"
+import googleLoginPage from "./pages/googleLoginPage"
+import mailinatorPage from './pages/mailinatorPage'
+import mainPage from "./pages/mainPage"
+import subscriptionPage from './pages/subscriptionPage'
+import user from "./fixtures/googleUser.json"
 
 fixture('Tabeo Tests')
 .page("https://qa-challenge-tabeo.vercel.app/")

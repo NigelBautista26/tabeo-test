@@ -1,6 +1,5 @@
 import { Selector, t } from 'testcafe'
-import cardDetails from "../fixtures/cardDetails.json"
-import user from "../fixtures/googleUser.json"
+import cardDetails from "./../fixtures/cardDetails.json"
 
 class SubscriptionPage {
 
