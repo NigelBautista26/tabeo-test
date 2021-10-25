@@ -1,13 +1,13 @@
 import downloadPage from './pages/downloadPage'
 import url from "./fixtures/url.json"
 
-fixture('Download File Tests')
+fixture('Download Purchased File Tests')
 .beforeEach(async (t) => {
     await t.setNativeDialogHandler(() => true)
     await t.maximizeWindow()
   })
 
-//download test scenarios...
+//download purchased file test scenarios...
 test.meta('testID', 'tb-17')("Download subscription file", async (t) => {
       await t.navigateTo(url.downloadPage20)
       await downloadPage.checkCurrentURL()
