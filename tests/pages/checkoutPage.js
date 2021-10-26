@@ -1,7 +1,5 @@
 import { Selector, t } from 'testcafe'
 import cardDetails from "../fixtures/cardDetails.json"
-import checkoutPage from './checkoutPage'
-
 class CheckoutPage {
 
     cardNumberField() { return Selector('#cardNumber') }
@@ -46,9 +44,33 @@ class CheckoutPage {
     async checkoutSinglePay(t) {
       await this.successfulCheckout(t)
       await t.click(this.payButton())
+      await this.successfulAuthentication(t)
+    }
+
+    async cancelCheckoutSinglePay(t) {
+      await this.successfulCheckout(t)
+      await t.click(this.payButton())
+    }
+
+    async checkoutFailedSinglePay(t) {
+      await this.successfulCheckout(t)
+      await t.click(this.payButton())
+      await this.failedAuthentication(t)
     }
 
     async checkoutSubsciption(t) {
+      await this.successfulCheckout(t)
+      await t.click(this.subscribeButton())
+      await this.successfulAuthentication(t)
+    }
+
+    async checkoutFailedSubsciption(t) {
+      await this.successfulCheckout(t)
+      await t.click(this.subscribeButton())
+      await this.failedAuthentication(t)
+    }
+
+    async cancelSubscription(t) {
       await this.successfulCheckout(t)
       await t.click(this.subscribeButton())
     }
@@ -56,11 +78,13 @@ class CheckoutPage {
     async rejectedCheckout(t) {
       await this.checkoutWithRejectedCard(t)
       await t.click(this.payButton())
+      await this.successfulAuthentication(t)
     }
 
     async rejectedSubscriptionCheckout(t) {
       await this.checkoutWithRejectedCard(t)
       await t.click(this.subscribeButton())
+      await this.successfulAuthentication(t)
     }
 
     async checkoutWithInvalidCardNumber(t) {

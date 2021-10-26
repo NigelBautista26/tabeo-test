@@ -1,9 +1,6 @@
-import googleLoginPage from "./pages/googleLoginPage"
-import mailinatorPage from './pages/mailinatorPage'
 import mainPage from "./pages/mainPage"
 import checkoutPage from './pages/checkoutPage'
 import downloadPage from './pages/downloadPage'
-import user from "./fixtures/user.json"
 
 fixture('single payment Tests')
 .page("https://qa-challenge-tabeo.vercel.app/")
@@ -18,7 +15,6 @@ fixture('single payment Tests')
     await mainPage.googleSignIn(t)
     await t.click(mainPage.singlePayButton())
     await checkoutPage.checkoutSinglePay(t)
-    await checkoutPage.successfulAuthentication(t)
     await downloadPage.checkCurrentURL()
 })
 
@@ -26,15 +22,13 @@ test.meta('testID', 'tb-10')("Google sign in with a rejected card purchase for s
       await mainPage.googleSignIn(t)
       await t.click(mainPage.singlePayButton())
       await checkoutPage.rejectedCheckout(t)
-      await checkoutPage.successfulAuthentication(t)
       await t.expect(checkoutPage.cardDeclinedMessage().visible).ok()
 })
 
 test.meta('testID', 'tb-11')("Google sign in with a failed authentication of purchase for single payment", async (t) => {
       await mainPage.googleSignIn(t)
       await t.click(mainPage.singlePayButton())
-      await checkoutPage.checkoutSinglePay(t)
-      await checkoutPage.failedAuthentication(t)
+      await checkoutPage.checkoutFailedSinglePay(t)
       await t.expect(checkoutPage.unableToSubscribeMessage().visible).ok()
 })
 
@@ -56,7 +50,7 @@ test.meta('testID', 'tb-13')("single purchase with incomplete card number", asyn
   test.meta('testID', 'tb-14')("Cancel the single payment", async (t) => {
       await mainPage.googleSignIn(t)
       await t.click(mainPage.singlePayButton())
-      await checkoutPage.checkoutSinglePay(t)
+      await checkoutPage.cancelCheckoutSinglePay(t)
       await checkoutPage.cancelIframe(t)
       await t.expect(checkoutPage.unableToSubscribeMessage().visible).ok()
   })
@@ -70,10 +64,9 @@ test.meta('testID', 'tb-13')("single purchase with incomplete card number", asyn
 
   //This test can be flaky because mailinator sometimes doesnt recieve the new email with the magic link...
   test.meta('testID', 'tb-16')("Email sign in and a successful single payment purchase", async (t) => {
-      await mainPage.emailLogin(t)
+      await mainPage.emailSignIn(t)
       await t.click(mainPage.singlePayButton())
       await checkoutPage.checkoutSinglePay(t)
-      await checkoutPage.successfulAuthentication(t)
     })
   
 

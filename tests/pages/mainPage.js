@@ -21,7 +21,7 @@ class MainPage {
       await t.expect(mainPage.accountName().textContent).contains(user.fullName)
     }
 
-    async emailLogin(t) {
+    async emailSignIn(t) {
       await t.typeText(this.emailField(), user.email)
       await t.click(this.signInWithEmailButton()).wait(7000) // this wait is to give mailinator the time to recieve the email with the magic link...
       await t.navigateTo(mailinatorPage.mailinatorPage())
@@ -30,10 +30,15 @@ class MainPage {
       await t.click(mailinatorPage.magicLink()).maximizeWindow()
     }
 
-    async signOut(t) {
-      await t.click(mainPage.signInWithGoogleButton())
-      await googleLoginPage.googleLogin(t)
-      await t.expect(mainPage.accountName().textContent).contains(user.fullName)
+    async signOutGoogleAccount(t) {
+      await this.googleSignIn(t)
+      await t.click(mainPage.loggedInAccountButton())
+      await t.click(mainPage.signOutButton())
+      await t.expect(mainPage.signInButton().visible).ok()
+    }
+
+    async signOutEmailAccount(t) {
+      await this.emailSignIn(t)
       await t.click(mainPage.loggedInAccountButton())
       await t.click(mainPage.signOutButton())
       await t.expect(mainPage.signInButton().visible).ok()

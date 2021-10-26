@@ -1,9 +1,6 @@
-import googleLoginPage from "./pages/googleLoginPage"
-import mailinatorPage from './pages/mailinatorPage'
 import mainPage from "./pages/mainPage"
 import checkoutPage from './pages/checkoutPage'
 import downloadPage from './pages/downloadPage'
-import user from "./fixtures/user.json"
 
 fixture('Subscription Tests')
 .page("https://qa-challenge-tabeo.vercel.app/")
@@ -15,26 +12,23 @@ fixture('Subscription Tests')
 
   //Subscription purchase test scenarios...
   test.meta('testID', 'tb-1')("Google sign in with a successful purchase of subscription", async (t) => {
-    await mainPage.googleSignIn(t)
-    await t.click(mainPage.subscriptionButton())
-    await checkoutPage.checkoutSubsciption(t)
-    await checkoutPage.successfulAuthentication(t)
-    await downloadPage.checkCurrentURL()
+        await mainPage.googleSignIn(t)
+        await t.click(mainPage.subscriptionButton())
+        await checkoutPage.checkoutSubsciption(t)
+        await downloadPage.checkCurrentURL()
 })
 
 test.meta('testID', 'tb-2')("Google sign in with a rejected card purchase of subscription", async (t) => {
       await mainPage.googleSignIn(t)
       await t.click(mainPage.subscriptionButton())
       await checkoutPage.rejectedSubscriptionCheckout(t)
-      await checkoutPage.successfulAuthentication(t)
       await t.expect(checkoutPage.cardDeclinedMessage().visible).ok()
 })
 
 test.meta('testID', 'tb-3')("Google sign in with a failed authentication of purchase of subscription", async (t) => {
       await mainPage.googleSignIn(t)
       await t.click(mainPage.subscriptionButton())
-      await checkoutPage.checkoutSubsciption(t)
-      await checkoutPage.failedAuthentication(t)
+      await checkoutPage.checkoutFailedSubsciption(t)
       await t.expect(checkoutPage.unableToSubscribeMessage().visible).ok()
 })
 
@@ -56,7 +50,7 @@ test.meta('testID', 'tb-5')("Purchase of subscription with incomplete card numbe
   test.meta('testID', 'tb-6')("Cancel the subscription payment", async (t) => {
       await mainPage.googleSignIn(t)
       await t.click(mainPage.subscriptionButton())
-      await checkoutPage.checkoutSubsciption(t)
+      await checkoutPage.cancelSubscription(t)
       await checkoutPage.cancelIframe(t)
       await t.expect(checkoutPage.unableToSubscribeMessage().visible).ok()
   })
@@ -70,9 +64,8 @@ test.meta('testID', 'tb-5')("Purchase of subscription with incomplete card numbe
 
   // This test can be flaky because mailinator sometimes doesnt recieve the new email with the magic link...
   test.meta('testID', 'tb-8')("Email sign in and a successful purchase of subscription", async (t) => {
-      await mainPage.emailLogin(t)
+      await mainPage.emailSignIn(t)
       await t.click(mainPage.subscriptionButton())
       await checkoutPage.checkoutSubsciption(t)
-      await checkoutPage.successfulAuthentication(t)
     })
 

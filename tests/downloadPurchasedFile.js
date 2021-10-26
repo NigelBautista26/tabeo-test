@@ -10,7 +10,6 @@ fixture('Download Purchased File Tests')
 //download purchased file test scenarios...
 test.meta('testID', 'tb-17')("Download subscription file", async (t) => {
       await t.navigateTo(url.downloadPage20)
-      await downloadPage.checkCurrentURL()
       await t.expect(downloadPage.thankYouMessage().innerText).eql('THANK YOU!')
       await t.expect(downloadPage.purchaseReadyToDownloadMessage().visible).ok()
       await t.expect(downloadPage.priceDisplay().innerText).eql('12 * £20 (£240)')
@@ -19,7 +18,6 @@ test.meta('testID', 'tb-17')("Download subscription file", async (t) => {
 
 test.meta('testID', 'tb-18')("Download single pay file", async (t) => {
       await t.navigateTo(url.downloadPage220)
-      await downloadPage.checkCurrentURL()
       await t.expect(downloadPage.thankYouMessage().innerText).eql('THANK YOU!')
       await t.expect(downloadPage.purchaseReadyToDownloadMessage().visible).ok()
       await t.expect(downloadPage.priceDisplay().innerText).eql('£220')
