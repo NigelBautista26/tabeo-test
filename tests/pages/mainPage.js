@@ -1,5 +1,8 @@
 import { Selector, t } from 'testcafe'
 import user from "./../fixtures/user.json"
+import mailinatorPage from './mailinatorPage'
+import googleLoginPage from './googleLoginPage'
+import mainPage from './mainPage'
 class MainPage {
 
     signInButton() { return Selector('.justify-between > .text-sm') }
@@ -12,9 +15,28 @@ class MainPage {
     loggedInAccountButton() { return Selector('.bg-gray-200') }
     signOutButton() { return Selector('.origin-top-right > .block') }
 
+    async googleSignIn(t) {
+      await t.click(mainPage.signInWithGoogleButton())
+      await googleLoginPage.googleLogin(t)
+      await t.expect(mainPage.accountName().textContent).contains(user.fullName)
+    }
+
     async emailLogin(t) {
       await t.typeText(this.emailField(), user.email)
       await t.click(this.signInWithEmailButton()).wait(7000) // this wait is to give mailinator the time to recieve the email with the magic link...
+      await t.navigateTo(mailinatorPage.mailinatorPage())
+      await t.click(mailinatorPage.recievedEmail())
+      await t.switchToIframe(mailinatorPage.iframe())
+      await t.click(mailinatorPage.magicLink()).maximizeWindow()
+    }
+
+    async signOut(t) {
+      await t.click(mainPage.signInWithGoogleButton())
+      await googleLoginPage.googleLogin(t)
+      await t.expect(mainPage.accountName().textContent).contains(user.fullName)
+      await t.click(mainPage.loggedInAccountButton())
+      await t.click(mainPage.signOutButton())
+      await t.expect(mainPage.signInButton().visible).ok()
     }
 
   }
